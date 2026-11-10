@@ -1,0 +1,2127 @@
+# MASTER DEVELOPMENT PROMPT
+## Personal Finance Manager — Complete Full-Stack Web Application
+
+Act as a senior full-stack software architect, financial application engineer, database designer, UI/UX designer, and QA engineer.
+
+Your task is to build a complete, functional, production-oriented Personal Finance Management Web Application for a single user.
+
+This is not a simple expense tracker, landing page, or UI prototype. It must be a real financial management application with working database operations, accurate financial calculations, secure authentication, offline-first functionality, cloud synchronization, reporting, and data backup.
+
+Do not stop after generating a dashboard or static UI. Every displayed feature must have a working implementation or be clearly identified as awaiting external configuration.
+
+---
+
+# 1. PROJECT OVERVIEW
+
+**Application Name:** Personal Finance Manager
+
+**Application Type:** Single-user Personal Financial Management System
+
+**Platform:** Responsive Web Application (Desktop, Tablet, Mobile)
+
+**Primary Currency:** Bangladeshi Taka (BDT / ৳)
+
+**Primary Language:** Bengali
+
+**Secondary Language:** English
+
+**Timezone:** Asia/Dhaka
+
+**Design Style:** Clean, Minimal, Modern, Professional
+
+**Architecture:** Full-stack React + TypeScript + Firebase
+
+**Primary Database:** Firebase Cloud Firestore
+
+**Authentication:** Firebase Authentication with Google Sign-In
+
+**Storage:** Firebase Cloud Storage for receipts and attachments
+
+**Offline Support:** Firestore persistent local cache + IndexedDB for local files and required offline data management
+
+**Application Experience:** Installable Progressive Web App (PWA)
+
+## Main objective
+
+Create one centralized application where I can manage all my personal financial activities.
+
+I must be able to understand:
+
+- How much money I have.
+- Where my money is stored.
+- How much money I earn.
+- How much money I spend.
+- Who I spend money for.
+- Who owes me money.
+- Whom I owe money to.
+- How much I have saved.
+- What assets I own.
+- What liabilities I have.
+- How my financial situation changes over time.
+
+The application must provide a reliable financial picture without double-counting internal transfers, savings, loans, or assets.
+
+# 2. IMPORTANT DEVELOPMENT INSTRUCTIONS
+
+Follow these instructions throughout development.
+
+1. Build an actual working application, not a visual mockup.
+2. Use TypeScript and a maintainable component-based architecture.
+3. Use Firebase Authentication, Firestore, and Storage.
+4. Use secure Firestore and Storage Security Rules.
+5. Implement functional Create, Read, Update, Archive, Delete, Restore, and Search operations wherever applicable.
+6. Use a centralized financial calculation engine. Do not calculate financial totals independently in different UI components.
+7. Keep all financial data persistent.
+8. Do not use hardcoded financial values as production data.
+9. Do not use fake buttons, placeholder navigation, or non-functional charts.
+10. All forms must include validation and appropriate error handling.
+11. Use transactions, write batches, and immutable operation IDs where appropriate.
+12. All dates and times must respect Asia/Dhaka.
+13. Keep the application usable when the internet is unavailable.
+14. Provide clear synchronization status for pending and completed operations.
+15. Do not silently discard financial information during synchronization or editing.
+16. Implement responsive layouts for mobile and desktop.
+17. Keep the application accessible and easy to use.
+18. Maintain a clear separation between financial business logic, UI, database services, and synchronization services.
+19. Add automated tests for important calculations.
+20. Run the build, fix errors, and test the critical application flows before considering a feature complete.
+
+When a feature requires Firebase provisioning, credentials, permissions, or external configuration, implement the application-side code and provide exact setup instructions. Never pretend an external integration is working without verifying it.
+
+# 3. TECHNOLOGY STACK
+
+Use the following recommended stack, adapting versions to the current Google AI Studio environment.
+
+### Frontend
+
+- React
+- TypeScript
+- Vite (if applicable to the generated environment)
+- Tailwind CSS
+- React Router
+- Lucide React icons
+- React Hook Form
+- Zod validation
+- Recharts for charts
+
+### Backend and Data
+
+- Firebase Authentication
+- Cloud Firestore
+- Firebase Storage
+- Firebase Security Rules
+- Node.js server-side runtime where necessary
+
+### Offline and PWA
+
+- Firestore modular Web SDK
+- Firestore persistent IndexedDB cache
+- IndexedDB for attachment files and application-specific local queues
+- Service Worker
+- PWA manifest and install support
+
+### Export and Reporting
+
+- Excel export using an appropriate XLSX library
+- PDF export using an appropriate PDF library
+- JSON data backup and restoration
+
+### AI and Voice
+
+- Gemini API through a server-side endpoint.
+- Use Google AI Studio's managed server-side Gemini API key where available.
+- Never expose Gemini API keys in frontend code.
+
+Do not introduce unnecessary libraries or complicated architecture.
+
+# 4. APPLICATION DESIGN AND USER EXPERIENCE
+
+Create a polished, professional financial dashboard.
+
+## Visual design
+
+Use:
+
+- Clean and minimal design.
+- White or soft neutral background.
+- Professional typography.
+- Subtle shadows and borders.
+- Consistent spacing.
+- Clear financial cards.
+- Rounded corners, but avoid excessive decoration.
+- Modern and readable tables.
+- Green for positive financial movement.
+- Red for expenses and negative movement.
+- Blue or neutral colors for transfers and general information.
+- Responsive charts.
+
+Provide both:
+
+- Light Mode
+- Dark Mode
+
+The UI must not look like a generic admin template. Design it as a premium personal finance application.
+
+## Desktop layout
+
+Use a fixed or collapsible sidebar on the left.
+
+Main navigation:
+
+1. Dashboard
+2. Transactions
+3. Accounts
+4. Transfers
+5. People
+6. Categories
+7. Loans
+8. Savings
+9. Assets
+10. Liabilities
+11. Budgets
+12. Recurring Transactions
+13. Reports
+14. Notifications
+15. Trash & Audit History
+16. Settings
+
+Top navigation:
+
+- Page title.
+- Search.
+- Quick Add button.
+- Language switch.
+- Theme switch.
+- Notification icon.
+- Profile menu.
+- Online / Offline sync indicator.
+
+## Mobile layout
+
+The application must work well on mobile screens.
+
+Use:
+
+- Compact top navigation.
+- Bottom navigation or mobile navigation drawer.
+- Floating Quick Add button.
+- Mobile-friendly forms.
+- Mobile-friendly transaction cards.
+- Tables that transform into readable cards when necessary.
+
+# 5. DASHBOARD
+
+Create a comprehensive but uncluttered financial dashboard.
+
+The Dashboard should show summary cards and important charts. Detailed financial information must have separate pages.
+
+## Summary cards
+
+Display:
+
+1. Total Income
+2. Total Expense
+3. Available Balance
+4. Cash Balance
+5. Bank Balance
+6. Mobile Banking Balance
+7. Total Savings
+8. Loan Given Outstanding
+9. Loan Taken Outstanding
+10. Total Assets
+11. Total Liabilities
+12. Net Worth
+
+Each summary should be calculated using actual database records.
+
+Make cards clickable where applicable, opening the relevant detail page.
+
+## Dashboard charts
+
+Create:
+
+- Monthly Income vs Expense Chart
+- Category-wise Expense Pie or Donut Chart
+- Person-wise Expense Chart
+- Account-wise Balance Chart
+- Monthly Savings Trend
+
+## Dashboard filters
+
+Add:
+
+- Today
+- This Week
+- This Month
+- This Year
+- Custom Date Range
+
+Ensure that all summary cards and charts update when the selected date range changes.
+
+Clearly distinguish between all-time account balance and date-filtered financial activity. Opening balances must not appear as current-period Income.
+
+## Recent transactions
+
+Show the latest transactions with:
+
+- Type
+- Amount
+- Category
+- Person
+- Account
+- Date
+- Status
+
+Provide a View All option.
+
+## Alerts section
+
+Display:
+
+- Upcoming Loan Payments
+- Loan Receivables Due
+- Budget Warnings
+- Savings Goal Progress
+- Pending Recurring Transactions
+- Unsynced Transactions
+
+# 6. ACCOUNT AND PAYMENT METHOD MANAGEMENT
+
+Create a dedicated Accounts section.
+
+Allow creating multiple accounts under the same provider.
+
+## Default account types
+
+### Cash
+
+- Personal Cash
+- Home Cash
+- Custom Cash Account
+
+### Bank Accounts
+
+- DBBL
+- City Bank
+- BRAC Bank
+- Other banks
+- Custom Bank Account
+
+### Mobile Banking
+
+- bKash
+- Nagad
+- Rocket
+- Upay
+- Custom Wallet
+
+### Savings Accounts
+
+- Bank Savings
+- Cash Savings
+- Other Savings Accounts
+
+### Savings Products
+
+- DPS
+- FDR
+- Fixed Deposit
+
+Allow custom account types where practical.
+
+## Account fields
+
+Each account must have:
+
+- Account ID
+- Account Name
+- Account Type
+- Provider / Bank Name
+- Account Number or Nickname (optional)
+- Opening Balance
+- Opening Balance Date
+- Current Balance
+- Currency (BDT only)
+- Status: Active / Archived
+- Description
+- Created At
+- Updated At
+
+## Opening balance management
+
+During first-time setup, allow the user to enter opening balances for all existing accounts.
+
+Example:
+
+| Account | Opening Balance |
+|---|---:|
+| Cash | ৳10,000 |
+| DBBL Bank | ৳30,000 |
+| Personal bKash | ৳5,000 |
+| Nagad | ৳2,000 |
+
+Opening Balance is not Income.
+
+Allow balance adjustments with mandatory notes and audit history.
+
+## Payment method and account distinction
+
+Payment Method and Financial Account must be separate fields.
+
+Examples:
+
+- Payment Method: bKash
+- Account: Personal bKash
+
+- Payment Method: Debit Card
+- Account: DBBL Bank
+
+Debit Card must be a payment channel linked to its corresponding Bank Account, not an independent balance account.
+
+Credit Card Management is outside the current scope.
+
+## Account operations
+
+Implement:
+
+- Add Account
+- Edit Account
+- Archive Account
+- View Balance
+- View Account Ledger
+- Search and Filter
+- Account-wise Reports
+- Opening Balance Adjustment
+
+Never physically delete accounts with financial history.
+
+# 7. TRANSACTION MANAGEMENT
+
+This is the most important module.
+
+Create a complete transaction management system.
+
+## Transaction form
+
+Every transaction must support the following fields where applicable:
+
+- Transaction ID
+- Transaction Type
+- Amount
+- Category
+- Subcategory
+- Person / Beneficiary
+- Payment Method
+- Financial Account
+- Date
+- Time
+- Description
+- Note
+- Receipt / Image Attachment
+- Created At
+- Updated At
+- Created Device
+- Sync Status
+- Revision Number
+
+Use the current Dhaka date and time as defaults. Allow editing before saving.
+
+## Transaction types
+
+Implement separate business logic for:
+
+1. Income
+2. Expense
+3. Transfer
+4. Loan Given
+5. Loan Received
+6. Loan Repayment Received
+7. Loan Repayment Paid
+8. Savings Deposit
+9. Savings Withdrawal
+10. Asset Purchase
+11. Asset Sale
+12. Refund
+13. Balance Adjustment
+
+Each transaction type must display only its relevant form fields and validations.
+
+## Income categories
+
+Create these default categories:
+
+- Salary
+- Business Income
+- Freelancing Income
+- Investment Profit
+- Rental Income
+- Gift
+- Other Income
+
+Allow custom categories and subcategories.
+
+Loan Received must never be classified as normal Income.
+
+## Expense categories
+
+Create these default categories:
+
+- Food & Grocery
+- House Rent
+- Electricity
+- Gas
+- Water
+- Internet
+- Transportation
+- Shopping & Clothing
+- Medical & Healthcare
+- Education
+- Family Expense
+- Wife Expense
+- Personal Expense
+- Entertainment
+- Travel
+- Donation & Charity
+- Business Expense
+- Other Expense
+
+Allow custom categories and subcategories.
+
+## Person / Beneficiary field
+
+Each expense can be associated with a person or beneficiary.
+
+Default people:
+
+- Family
+- Wife
+- Personal
+- Father
+- Mother
+- Brother
+- Sister
+- Friend
+- Business
+- Others
+
+Allow the user to:
+
+- Add new people.
+- Edit people.
+- Archive people.
+- Choose an existing person.
+- Generate person-wise expense reports.
+
+Person selection should be optional for transaction types where it is not relevant.
+
+## Quick Add
+
+Create a prominent Quick Add button visible throughout the application.
+
+Quick Add must support:
+
+- Quick Income
+- Quick Expense
+- Quick Transfer
+
+Use a fast, clean form.
+
+Remember the most recently used account and relevant input preferences where safe, while allowing the user to change them.
+
+# 8. SPLIT TRANSACTION
+
+A single payment must be divisible into multiple categories and people.
+
+Example:
+
+Total expense: ৳2,000
+
+| Category | Person | Amount |
+|---|---|---:|
+| Food | Family | ৳1,000 |
+| Shopping | Personal | ৳600 |
+| Household | Wife | ৳400 |
+
+The sum of all split lines must exactly equal the main transaction amount.
+
+Validation:
+
+sum(splitLines.amount) === transaction.amount
+
+Do not allow saving if the totals do not match.
+
+Display the expense correctly in:
+
+- Category Reports
+- Person Reports
+- Account Reports
+- Monthly Reports
+
+Never count the parent transaction and its split lines as separate expenses.
+
+# 9. REFUND MANAGEMENT
+
+Support partial and full refunds.
+
+Example:
+
+Original shopping expense = ৳2,000
+
+Refund received = ৳500
+
+Net expense = ৳1,500
+
+Requirements:
+
+- Link every refund to its original Expense.
+- Track refund date and account.
+- Track total refunded amount.
+- Prevent refunds exceeding the remaining refundable amount.
+- Allow multiple partial refunds.
+- Update the original expense's Net Expense.
+- Show refund history.
+
+Refund is not new Income.
+
+# 10. TRANSFER MANAGEMENT
+
+Allow money transfer between the user's own accounts.
+
+Example:
+
+DBBL Bank → Personal bKash = ৳5,000
+
+Required fields:
+
+- Transfer ID
+- Source Account
+- Destination Account
+- Amount
+- Date
+- Time
+- Description
+- Note
+- Optional Transfer Fee
+
+Rules:
+
+- Source and destination must be different accounts.
+- Deduct from source.
+- Add to destination.
+- Create a linked transfer record.
+- Preserve the same Transfer ID on both account movements.
+- Do not classify the transfer as Income or Expense.
+- Prevent duplicate transfer posting.
+- Transfer fees, when any, must be separately recorded as Expenses.
+- Maintain Transfer History.
+
+# 11. LOAN MANAGEMENT
+
+Create a full Loan Management module.
+
+Support:
+
+A. Loan Given — I lend money to someone.
+
+B. Loan Taken — I borrow money from someone.
+
+## Loan information fields
+
+- Loan ID
+- Loan Type
+- Person / Lender / Borrower
+- Original Amount
+- Paid Amount
+- Received Amount
+- Remaining Amount
+- Start Date
+- Due Date
+- Description
+- Note
+- Payment Account
+- Repayment Schedule
+- Status
+
+## Loan statuses
+
+- Pending
+- Partial
+- Completed
+- Overdue
+
+Automatically update status based on remaining balance and relevant dates.
+
+## Loan repayment
+
+Support:
+
+- Full Repayment
+- Partial Repayment
+- Multiple Installments
+- Repayment History
+- Due Date Tracking
+- Manual Repayment Entry
+
+## Correct accounting rules
+
+Loan Given:
+
+- Cash or Bank balance decreases.
+- Loan Receivable increases.
+- Expense does not increase.
+
+Loan Received:
+
+- Cash or Bank balance increases.
+- Loan Liability increases.
+- Income does not increase.
+
+Loan Repayment Received:
+
+- Cash increases.
+- Loan Receivable decreases.
+- Principal repayment does not increase Income.
+
+Loan Repayment Paid:
+
+- Cash decreases.
+- Loan Liability decreases.
+- Principal repayment does not increase Expense.
+
+Any optional interest or fees must be recorded separately as income or expense, not included in principal.
+
+The Loan module must be the single source of truth for outstanding loan balances.
+
+# 12. SAVINGS MANAGEMENT
+
+Create a full Savings Management section.
+
+## Savings types
+
+1. Savings Accounts
+2. Cash Savings
+3. Savings Goals
+4. DPS
+5. FDR
+6. Other Saving Products
+
+## Savings Goals
+
+Allow the user to create goals.
+
+Example:
+
+Goal: Buy a Laptop
+
+Target Amount: ৳50,000
+
+Current Saved Amount: ৳20,000
+
+Remaining: ৳30,000
+
+Progress: 40%
+
+Fields:
+
+- Goal Name
+- Target Amount
+- Current Saved Amount
+- Start Date
+- Deadline
+- Linked Account
+- Description
+- Status
+
+Display progress bars and goal summaries.
+
+## Savings products
+
+For DPS and FDR, support:
+
+- Institution Name
+- Product Name
+- Principal
+- Start Date
+- Maturity Date
+- Maturity Value (optional)
+- Linked Account
+- Current Value
+- Notes
+
+## Accounting rules
+
+Savings Deposit and Savings Withdrawal are internal movements between the user's own accounts or savings buckets.
+
+They are not Income or Expense.
+
+Savings Goals are allocation records, not additional assets.
+
+Never count a savings goal's money twice.
+
+If a DPS/FDR is linked to an account, do not separately add the same principal to Assets.
+
+# 13. ASSET MANAGEMENT
+
+Create a detailed Assets section.
+
+Default asset categories:
+
+- Land
+- House / Building
+- Gold
+- Vehicle
+- Electronics
+- Business Ownership
+- Other Valuable Assets
+
+Allow custom asset categories.
+
+## Asset fields
+
+- Asset ID
+- Asset Name
+- Asset Category
+- Purchase Date
+- Purchase Price
+- Current Estimated Value
+- Linked Account
+- Description
+- Notes
+- Attachments
+- Status
+
+Support:
+
+- Add Asset
+- Edit Asset
+- Asset Details
+- Value Updates
+- Asset Purchase History
+- Asset Sale
+- Asset Reports
+
+## Accounting rules
+
+Asset Purchase:
+
+- Reduce the payment account.
+- Increase the asset value.
+- Do not automatically classify the entire purchase as an operating Expense.
+
+Asset Sale:
+
+- Increase the receiving account.
+- Reduce the asset carrying value.
+- Track the sale price and gain/loss separately where applicable.
+
+Asset valuation changes must update Net Worth without pretending to be cash Income.
+
+# 14. LIABILITY MANAGEMENT
+
+Create a detailed Liabilities section.
+
+Default categories:
+
+- Personal Loan
+- Bank Loan
+- Family / Friend Debt
+- Unpaid Bills
+- Other Liabilities
+
+Fields:
+
+- Liability ID
+- Liability Name
+- Category
+- Original Amount
+- Paid Amount
+- Remaining Amount
+- Start Date
+- Due Date
+- Payment Schedule
+- Description
+- Notes
+- Status
+
+Implement:
+
+- Add
+- Edit
+- Payment Entry
+- Payment History
+- Remaining Balance
+- Due Tracking
+- Liability Reports
+
+Do not duplicate Loan Module liabilities.
+
+Loan Taken should be counted from the Loan module only.
+
+# 15. BUDGET MANAGEMENT
+
+Create a full Budget Management section.
+
+Support:
+
+1. Monthly Overall Budget
+2. Monthly Category-wise Budget
+3. Yearly Budget
+4. Custom Budget Period
+
+Example:
+
+| Category | Monthly Budget |
+|---|---:|
+| Food | ৳8,000 |
+| Transportation | ৳3,000 |
+| Shopping | ৳5,000 |
+| Family | ৳10,000 |
+| Entertainment | ৳2,000 |
+
+Show:
+
+- Budget Amount
+- Spent Amount
+- Remaining Amount
+- Percentage Used
+- Status
+
+## Budget alerts
+
+Create alerts at configurable thresholds.
+
+Default suggested thresholds:
+
+- 70%
+- 85%
+- 100%
+
+Allow changing thresholds.
+
+Exclude internal Transfers and principal Loan Repayments from Budget Spending.
+
+Deduct linked Refunds when calculating Net Expense.
+
+# 16. RECURRING TRANSACTIONS
+
+Allow creating recurring transaction reminders.
+
+Examples:
+
+- House Rent
+- Internet Bill
+- Monthly Tuition
+- Regular Subscription
+- Other recurring expenses
+
+Fields:
+
+- Reminder Name
+- Transaction Type
+- Amount
+- Category
+- Account
+- Person
+- Frequency
+- Start Date
+- Next Due Date
+- End Date (optional)
+- Description
+
+Supported frequency:
+
+- Daily
+- Weekly
+- Monthly
+- Yearly
+- Custom supported intervals
+
+Important behavior:
+
+When a recurring transaction becomes due, create a reminder or notification.
+
+DO NOT automatically post the transaction as a real Expense.
+
+The user must confirm the transaction before saving.
+
+Actions:
+
+- Confirm & Save
+- Edit Before Saving
+- Skip
+- Snooze
+- Mark as Not Paid
+
+Use a unique occurrence ID to prevent duplicate recurring transactions.
+
+# 17. REPORTS AND ANALYTICS
+
+Create a dedicated Reports section.
+
+Support the following reports:
+
+1. Daily Report
+2. Weekly Report
+3. Monthly Report
+4. Yearly Report
+5. Custom Date Range
+6. Income Report
+7. Expense Report
+8. Category-wise Expense Report
+9. Person-wise Expense Report
+10. Account-wise Report
+11. Loan Given Report
+12. Loan Taken Report
+13. Loan Repayment Report
+14. Savings Report
+15. Assets Report
+16. Liabilities Report
+17. Net Worth Report
+18. Transfer History
+19. Refund Report
+20. Budget Performance Report
+
+## Report filters
+
+- Date Range
+- Category
+- Person
+- Account
+- Transaction Type
+- Amount Range
+- Transaction Status
+
+## Export
+
+Provide working export buttons:
+
+- Excel (.xlsx)
+- PDF
+- JSON Backup
+
+Exports must contain actual filtered records, not placeholder data.
+
+Include totals, report period, and export date.
+
+# 18. VOICE TRANSACTION ENTRY — BENGALI
+
+Create a Bengali voice-assisted transaction entry feature.
+
+The user should be able to speak naturally in Bengali.
+
+Example:
+
+"আজকে বাজার করার জন্য বিকাশ থেকে ১২০০ টাকা খরচ করেছি, এটা Family Expense হিসেবে রাখো।"
+
+Expected AI interpretation:
+
+Transaction Type: Expense
+
+Amount: ৳1,200
+
+Category: Food & Grocery
+
+Person: Family
+
+Payment Method: bKash
+
+Account: Personal bKash
+
+Date: Today
+
+Time: Current Dhaka Time
+
+Description: Market expense
+
+## Voice workflow
+
+Step 1: User clicks the Microphone button.
+
+Step 2: Capture Bengali voice input.
+
+Step 3: Convert speech into text.
+
+Step 4: Send the text to a secure server-side Gemini endpoint for structured interpretation.
+
+Step 5: Extract transaction information.
+
+Step 6: Show a review form.
+
+Step 7: Let the user correct the Amount, Category, Account, Person, Date and other fields.
+
+Step 8: Save only after explicit confirmation.
+
+NEVER save a financial transaction automatically based only on AI interpretation.
+
+If the AI cannot confidently identify a required field, ask the user to provide or select it.
+
+## Voice support
+
+Primary voice language: Bengali.
+
+Handle natural Bengali and common financial phrases.
+
+Use browser speech recognition where available. Provide an appropriate fallback when unsupported.
+
+Voice functionality may require internet access depending on the speech recognition and Gemini services. Manual transaction entry must always remain available offline.
+
+# 19. SEARCH, FILTER, EDIT, DELETE, TRASH AND AUDIT HISTORY
+
+## Search
+
+Provide global and module-specific search.
+
+Search by:
+
+- Transaction Description
+- Amount
+- Category
+- Person
+- Account
+- Date
+- Note
+- Transaction ID
+
+## Edit
+
+Allow editing records with validation.
+
+Every edit must preserve an audit snapshot of the previous and updated values.
+
+## Delete
+
+Use soft deletion by default.
+
+Do not permanently delete important financial records from the primary application UI.
+
+Move deleted records into Trash.
+
+## Trash
+
+Allow:
+
+- View Deleted Records
+- Restore
+- Permanently Delete with explicit confirmation
+
+## Audit History
+
+Maintain:
+
+- Action
+- Entity Type
+- Entity ID
+- Old Values
+- New Values
+- Date and Time
+- Device ID
+- User ID
+
+Audit entries should be append-only.
+
+Never allow an ordinary edit to erase previous audit history.
+
+# 20. AUTHENTICATION AND SECURITY
+
+This is a single-user private financial application.
+
+## Google Login
+
+Use Firebase Authentication with Google Sign-In.
+
+Only one authorized Google account may use the application.
+
+Create an explicit owner allowlist configuration.
+
+Owner email placeholder:
+
+OWNER_EMAIL = "REPLACE_WITH_MY_GOOGLE_EMAIL"
+
+Do not guess or invent the user's Google email.
+
+At setup, clearly identify where the owner email must be configured.
+
+## Critical security requirements
+
+- Require Google authentication.
+- Require verified email.
+- Reject unauthorized accounts.
+- Sign out unauthorized users immediately.
+- Do not display financial data before authorization.
+- Never rely only on frontend route protection.
+- Implement authorization in Firestore Security Rules.
+- Apply equivalent access restrictions to Firebase Storage.
+- Restrict all personal records to the owner.
+- Do not allow anonymous database access.
+- Do not expose API keys or privileged credentials in frontend code.
+
+If the owner email has not yet been configured, keep database access denied rather than opening the database to all signed-in users.
+
+Provide complete Firebase Security Rules and instructions for publishing them.
+
+## PIN Lock
+
+Add an optional application PIN lock.
+
+## Password Lock
+
+Add an optional local application password lock.
+
+Never store PINs or passwords in plaintext.
+
+Use Web Crypto API with a randomly generated salt and a suitable password-based key derivation mechanism such as PBKDF2.
+
+Use rate limiting and increasing lockout delays after repeated failed attempts.
+
+Explain that this application lock is an additional privacy layer and does not replace Google Authentication or server-side security.
+
+## Auto Lock
+
+Add configurable inactivity-based auto-lock.
+
+Recommended initial default: 5 minutes.
+
+Provide configurable options such as:
+
+- 1 minute
+- 5 minutes
+- 10 minutes
+- 15 minutes
+- 30 minutes
+- 1 hour
+- 1 day
+- 5 days
+- Custom duration
+
+Allow the user to change the timeout from Settings.
+
+Auto-lock must work on both desktop and mobile.
+
+# 21. OFFLINE-FIRST ARCHITECTURE AND AUTOMATIC SYNC
+
+This feature is mandatory.
+
+The application must be useful even when the internet connection is unavailable.
+
+## Offline requirements
+
+While offline, the user must be able to:
+
+- View previously cached financial data.
+- Add Income.
+- Add Expense.
+- Add Transfer.
+- Add Loan Given.
+- Add Loan Received.
+- Add Loan Repayment.
+- Add Savings Transactions.
+- Add Assets and Liabilities.
+- Edit supported records.
+- Search cached transactions.
+- Continue using Quick Add.
+
+## Firestore offline persistence
+
+Use the current modular Firebase Web SDK.
+
+Configure persistent local Firestore caching before other Firestore operations.
+
+Use multi-tab persistence where supported.
+
+Gracefully handle unavailable browsers or persistence failures and clearly communicate the resulting limitation.
+
+Do not assume that Web offline persistence is enabled automatically.
+
+## Local attachment storage
+
+Store new offline receipt images and other attachments in IndexedDB until they can be uploaded to Firebase Storage.
+
+Keep attachment upload status.
+
+Do not discard local files before successful cloud upload.
+
+## Automatic synchronization
+
+When connectivity returns:
+
+1. Detect network recovery.
+2. Allow Firestore to synchronize its pending writes.
+3. Upload queued attachments.
+4. Update sync statuses.
+5. Refresh relevant summary calculations.
+6. Display any synchronization errors.
+7. Retry failed operations safely.
+
+Use stable UUIDs for client-created records.
+
+Use unique operation IDs and idempotent processing to prevent duplicate financial entries.
+
+Display these states:
+
+- Synced
+- Pending Sync
+- Syncing
+- Sync Failed
+- Conflict Needs Review
+
+Never show an unsynced transaction as successfully backed up.
+
+## Conflict management
+
+This application may be used on Desktop and Mobile simultaneously.
+
+Do not silently overwrite financial data when two devices edit the same record.
+
+Use revision numbers, immutable revision/audit records, and a conflict review mechanism.
+
+If two devices create competing revisions based on the same prior revision:
+
+- Preserve both versions.
+- Identify the conflicting fields.
+- Show the user both versions.
+- Allow the user to choose the correct version.
+- Record the resolution in Audit History.
+
+Use separate event or revision IDs rather than relying entirely on a single last-write-wins mutable document.
+
+Where offline support is required, prefer write batches and queued writes. Do not make a critical offline workflow depend on an online-only Firestore transaction.
+
+## PWA
+
+Provide:
+
+- Web App Manifest
+- Service Worker
+- App Shell Caching
+- Offline Fallback
+- Installability
+- Cache Version Management
+
+Do not cache private financial data in a publicly accessible cache.
+
+Clear sensitive local cached data when the user explicitly selects the corresponding secure sign-out / data clearing operation, while warning about pending unsynced records.
+
+# 22. NOTIFICATION SYSTEM
+
+Create a central Notification Center.
+
+Support:
+
+- Loan Repayment Due
+- Loan Receivable Due
+- Budget Warning
+- Savings Goal Reminder
+- Recurring Transaction Reminder
+- Monthly Financial Summary
+
+Include:
+
+- Read / Unread
+- Notification History
+- Notification Settings
+- Dismiss
+- Related Record Link
+
+## Browser notifications
+
+Request notification permission only after explaining why it is needed.
+
+Use browser notifications where supported.
+
+For notifications when the browser is closed, implement the necessary service worker and Firebase Cloud Messaging setup only when the required Firebase configuration and permission are available.
+
+Scheduled push notifications may require server-side scheduled execution. Do not pretend client-side timers can reliably send alerts when the application is closed.
+
+If push configuration is not complete, retain in-app notifications and clearly label browser push as awaiting setup.
+
+# 23. DATA BACKUP AND RESTORE
+
+Implement reliable data backup.
+
+## Manual backup
+
+Provide:
+
+- Full JSON Backup
+- Excel Export
+- PDF Export
+
+JSON Backup must include all relevant financial records:
+
+- Profile Settings
+- Accounts
+- Transactions
+- Categories
+- People
+- Loans
+- Repayments
+- Savings
+- Savings Goals
+- Assets
+- Liabilities
+- Budgets
+- Recurring Rules
+- Audit History
+- Other relevant metadata
+
+Include a schema version and backup creation date.
+
+## Restore
+
+Before restoring:
+
+- Validate the JSON structure.
+- Show a backup summary.
+- Identify duplicate IDs.
+- Validate linked account and transaction references.
+- Show a confirmation screen.
+- Keep an opportunity to create a backup of current data first.
+
+Do not overwrite existing data without explicit confirmation.
+
+## Cloud backup
+
+Maintain Firestore as the primary database.
+
+Google Sheets must not be treated as an automatically synchronized primary database.
+
+Implement Excel/CSV/JSON export first. Keep Google Sheets export as an optional future integration. Do not implement two-way Google Sheets synchronization without explicit authorization.
+
+# 24. CATEGORY MANAGEMENT
+
+Create a separate Categories page.
+
+Allow:
+
+- Create Category
+- Edit Category
+- Rename
+- Subcategory Creation
+- Custom Category
+- Choose Icon
+- Choose Color
+- Archive Category
+
+Separate Income Categories and Expense Categories.
+
+Do not delete categories that are already referenced in financial history. Archive them instead.
+
+# 25. FINANCIAL CALCULATION ENGINE
+
+Build a centralized financial calculation and ledger service.
+
+This section is extremely important.
+
+All dashboards, summaries, reports, and account balances must use the same calculation rules.
+
+Never calculate a financial summary by simply adding every transaction amount.
+
+## Account Balance
+
+Account Balance = Opening Balance + Posted Inflows - Posted Outflows + Valid Adjustments.
+
+Calculate each account separately.
+
+## Total Income
+
+Include only genuine Income transactions:
+
+- Salary
+- Business Income
+- Freelancing Income
+- Investment Profit
+- Rental Income
+- Gift
+- Other Income
+
+Exclude:
+
+- Loan Received
+- Account Transfers
+- Savings Deposits
+- Loan Principal Repayments Received
+- Asset Sales principal
+
+Any asset sale gain must be shown separately if applicable.
+
+## Total Expense
+
+Include genuine Expenses such as:
+
+- Food
+- Rent
+- Shopping
+- Utilities
+- Transport
+- Medical
+- Education
+- Entertainment
+
+Calculate:
+
+Net Expense = Posted Expenses - Linked Refunds
+
+Exclude:
+
+- Account Transfers
+- Savings Deposits
+- Loan Given
+- Loan Principal Repayment
+- Capitalized Asset Purchases
+
+Fees and interest are separate Expense entries when applicable.
+
+## Available Balance
+
+Total available balance must be calculated by adding the real balances of active cash, bank, and mobile wallet accounts.
+
+Clearly distinguish liquid available money from restricted or locked Savings Products.
+
+## Loan Given Outstanding
+
+Original Loan Given Principal - Principal Repayments Received.
+
+## Loan Taken Outstanding
+
+Original Loan Taken Principal - Principal Repayments Paid.
+
+## Savings Balance
+
+Calculate from actual saving account balances, linked deposits, contributions and withdrawals.
+
+Do not add Savings Goals to Net Worth as separate financial assets.
+
+## Total Assets
+
+Count each real asset only once.
+
+Include:
+
+- Cash
+- Bank
+- Mobile Wallets
+- Genuine Savings Products not already represented by account balances
+- Physical Assets
+- Outstanding Loans Given
+
+Do not count a linked FDR/DPS twice.
+
+## Total Liabilities
+
+Include:
+
+- Outstanding Loan Taken
+- Other Genuine Liabilities
+
+Do not double-count Loans Taken in the Liabilities module.
+
+## Net Worth
+
+Net Worth = Total Assets - Total Liabilities.
+
+Keep the Loan module as the single source of truth for loan receivables and loan liabilities.
+
+## Split Transactions
+
+Sum of Split Lines must equal the Parent Transaction Amount.
+
+Parent transaction amount is counted only once.
+
+## Refund
+
+Refund must reduce the linked Expense and cannot exceed its remaining refundable amount.
+
+## Transfer
+
+Transfer reduces the source account and increases the destination account.
+
+It does not change Total Income or Total Expense.
+
+## Asset Purchase
+
+Reduces cash and increases asset value.
+
+It does not automatically increase operating Expense.
+
+## Financial Integrity
+
+Use integer BDT amounts for stored whole-taka transactions. If decimal fees are supported, use a consistent precise representation and avoid floating-point calculation errors.
+
+Validate negative amounts, invalid account links, duplicate operation IDs and invalid dates.
+
+Use consistent rules across all report periods.
+
+# 26. DATABASE STRUCTURE
+
+Use a secure, owner-scoped Firestore data model.
+
+Suggested organization:
+
+users/{uid}/profile
+
+users/{uid}/accounts
+
+users/{uid}/transactions
+
+users/{uid}/transfers
+
+users/{uid}/categories
+
+users/{uid}/people
+
+users/{uid}/loans
+
+users/{uid}/loanRepayments
+
+users/{uid}/savingsGoals
+
+users/{uid}/savingsProducts
+
+users/{uid}/assets
+
+users/{uid}/liabilities
+
+users/{uid}/budgets
+
+users/{uid}/recurringRules
+
+users/{uid}/notifications
+
+users/{uid}/auditLogs
+
+users/{uid}/trash
+
+users/{uid}/attachments
+
+users/{uid}/transactionRevisions
+
+users/{uid}/syncConflicts
+
+users/{uid}/settings
+
+Every record should have:
+
+- Unique ID
+- Created At
+- Updated At
+- Schema Version where relevant
+- Owner UID
+- Sync Status where relevant
+
+## Transaction document design
+
+Include:
+
+- transactionId
+- type
+- amount
+- accountId
+- paymentMethodId or paymentMethod
+- categoryId
+- personId
+- occurredAt
+- timezone
+- description
+- note
+- splitLines
+- relatedLoanId
+- relatedTransferId
+- originalExpenseId
+- relatedAssetId
+- attachments
+- status
+- revisionNumber
+- createdAt
+- updatedAt
+- deletedAt (optional)
+
+Add appropriate type-specific fields.
+
+## Financial postings
+
+For maintainability, implement a consistent ledger/postings layer or equivalent financial event model.
+
+Each posted financial event must describe the balance impact on the relevant account and financial record.
+
+Use immutable event IDs.
+
+Ensure that a parent transaction and its financial postings are not counted twice in reports.
+
+Document the schema and calculation logic so it can be maintained in future development.
+
+# 27. LOCALIZATION
+
+Implement Bengali and English language switching.
+
+Default language: Bengali.
+
+Persist the user's selected language in Settings.
+
+Use translation dictionaries rather than scattering hardcoded text throughout components.
+
+All user-visible text must be translated, including:
+
+- Navigation
+- Forms
+- Buttons
+- Validation Messages
+- Notifications
+- Reports
+- Empty States
+- Settings
+- Error Messages
+
+Currency:
+
+৳ BDT
+
+Timezone:
+
+Asia/Dhaka
+
+Date display:
+
+10 Nov 2026
+
+Time display:
+
+04:30 PM
+
+Number formatting:
+
+1,00,000
+
+Ensure that dates and amounts are consistent throughout the application.
+
+# 28. SETTINGS PAGE
+
+Create a comprehensive Settings page.
+
+Sections:
+
+1. Profile
+2. Google Account
+3. Language
+4. Currency
+5. Date & Time
+6. Account Management
+7. Category Preferences
+8. People Management
+9. Theme
+10. PIN Lock
+11. Password Lock
+12. Auto-lock Timeout
+13. Notification Preferences
+14. Offline & Sync Preferences
+15. Backup & Restore
+16. Data Export
+17. Security Information
+18. About Application
+
+Display Firebase Sync Status and Local Data Status.
+
+# 29. FIRST-TIME SETUP WIZARD
+
+When the owner logs in for the first time, launch a setup wizard.
+
+Step 1: Verify the authorized Google account.
+
+Step 2: Confirm the default language.
+
+Step 3: Add existing financial accounts.
+
+Step 4: Enter opening balance for each account.
+
+Step 5: Select opening balance date.
+
+Step 6: Confirm default categories.
+
+Step 7: Confirm default people.
+
+Step 8: Configure PIN / Password Lock.
+
+Step 9: Select auto-lock duration.
+
+Step 10: Configure notification preferences.
+
+Step 11: Test local backup.
+
+Step 12: Complete setup and open Dashboard.
+
+Allow the owner to change these values later in Settings.
+
+Do not insert fictional financial balances into the user's actual accounts.
+
+# 30. INITIAL DEFAULT DATA
+
+Provide default data for:
+
+Payment Methods:
+
+- Cash
+- Bank
+- bKash
+- Nagad
+- Rocket
+- Upay
+- Debit Card
+- Other
+
+Accounts must be created by the owner with their own names and opening balances.
+
+People:
+
+- Family
+- Wife
+- Personal
+- Father
+- Mother
+- Brother
+- Sister
+- Friend
+- Business
+- Others
+
+Income Categories:
+
+- Salary
+- Business Income
+- Freelancing Income
+- Investment Profit
+- Rental Income
+- Gift
+- Other Income
+
+Expense Categories:
+
+- Food & Grocery
+- House Rent
+- Utilities
+- Transportation
+- Shopping & Clothing
+- Medical & Healthcare
+- Education
+- Family Expense
+- Wife Expense
+- Personal Expense
+- Entertainment & Travel
+- Donation & Charity
+- Business Expense
+- Other Expense
+
+All default categories and people must be customizable.
+
+# 31. AUTOMATED TESTING AND VALIDATION
+
+Create automated unit tests for the financial calculation engine and integration tests for important database operations.
+
+Mandatory test scenarios:
+
+### Test 1: Account Transfer
+
+Transfer ৳5,000 from DBBL to bKash.
+
+Expected:
+
+- DBBL reduces by ৳5,000.
+- bKash increases by ৳5,000.
+- Total Income unchanged.
+- Total Expense unchanged.
+
+### Test 2: Loan Given
+
+Give a friend ৳5,000.
+
+Expected:
+
+- Cash reduces by ৳5,000.
+- Loan Receivable increases by ৳5,000.
+- Expense unchanged.
+
+### Test 3: Loan Received
+
+Borrow ৳10,000.
+
+Expected:
+
+- Cash increases by ৳10,000.
+- Loan Liability increases by ৳10,000.
+- Income unchanged.
+
+### Test 4: Loan Repayment Received
+
+Receive ৳2,000 principal repayment.
+
+Expected:
+
+- Cash increases by ৳2,000.
+- Loan Receivable decreases by ৳2,000.
+- Income unchanged.
+
+### Test 5: Loan Repayment Paid
+
+Pay ৳3,000 principal.
+
+Expected:
+
+- Cash decreases by ৳3,000.
+- Loan Liability decreases by ৳3,000.
+- Expense unchanged.
+
+### Test 6: Split Expense
+
+Total Expense ৳2,000.
+
+Split:
+
+- Family ৳1,000.
+- Personal ৳600.
+- Wife ৳400.
+
+Expected:
+
+- Split total equals ৳2,000.
+- Expense counted once.
+- Person-wise reports are correct.
+
+### Test 7: Refund
+
+Original Expense ৳2,000.
+
+Refund ৳500.
+
+Expected:
+
+- Net Expense = ৳1,500.
+- Original Expense linked.
+- Refund is not counted as Income.
+
+### Test 8: Savings Deposit
+
+Move ৳5,000 from Cash to Savings.
+
+Expected:
+
+- Cash reduces.
+- Savings balance increases.
+- Total Income unchanged.
+- Total Expense unchanged.
+- Net Worth unchanged.
+
+### Test 9: Asset Purchase
+
+Purchase Gold for ৳20,000.
+
+Expected:
+
+- Cash reduces by ৳20,000.
+- Asset value increases by ৳20,000.
+- The purchase is not automatically classified as an ordinary Expense.
+- No duplicate asset counting.
+
+### Test 10: Recurring Reminder
+
+A recurring rent reminder becomes due.
+
+Expected:
+
+- Notification appears.
+- No Expense is posted until confirmation.
+- Confirming creates exactly one Expense.
+- Reopening the page must not create duplicates.
+
+### Test 11: Offline Transaction
+
+Add an Expense while offline.
+
+Expected:
+
+- Transaction saved locally / queued.
+- Transaction visible with Pending Sync status.
+- When online returns, the record syncs.
+- No duplicate transaction is created.
+
+### Test 12: Unauthorized Login
+
+Try accessing the app from an unauthorized Google account.
+
+Expected:
+
+- Access denied.
+- User signed out.
+- No financial records exposed.
+
+### Test 13: Multi-device Conflict
+
+Edit the same transaction on two devices.
+
+Expected:
+
+- Both edits are preserved.
+- Conflict is detected.
+- User can review and resolve the conflict.
+- No silent financial data loss.
+
+### Test 14: BDT Formatting
+
+Ensure ৳1,00,000 is consistently displayed using Bangladesh number formatting.
+
+# 32. DEVELOPMENT ROADMAP
+
+Implement the application in phases while maintaining one integrated project.
+
+Do not sacrifice correctness for speed.
+
+## Phase 1: Foundation
+
+- Project structure
+- React and TypeScript setup
+- Responsive navigation
+- Bengali / English localization
+- Firebase initialization
+- Google Login
+- Owner allowlist
+- Firestore Security Rules
+- Profile and Settings
+
+## Phase 2: Financial Core
+
+- Accounts
+- Opening Balances
+- Categories
+- People
+- Income
+- Expense
+- Transaction History
+- Quick Add
+- Transfers
+- Split Transactions
+- Refunds
+- Edit / Trash / Audit
+
+## Phase 3: Financial Modules
+
+- Loans
+- Loan Repayments
+- Savings Accounts
+- Savings Goals
+- DPS / FDR
+- Assets
+- Liabilities
+- Budgets
+- Recurring Transaction Reminders
+
+## Phase 4: Offline and Sync
+
+- Firestore Persistent Cache
+- PWA
+- Service Worker
+- Offline Data Handling
+- Attachment Queue
+- Sync Status
+- Multi-device Synchronization
+- Conflict Resolution
+
+## Phase 5: Dashboard and Reports
+
+- Financial Summary
+- Charts
+- Daily Reports
+- Weekly Reports
+- Monthly Reports
+- Yearly Reports
+- Custom Reports
+- Person-wise Reports
+- Account-wise Reports
+- Excel Export
+- PDF Export
+- JSON Backup and Restore
+
+## Phase 6: Advanced Features
+
+- Bengali Voice Input
+- Gemini Transaction Interpretation
+- Confirmation Workflow
+- Notification Center
+- Browser Notifications
+- Final Security Review
+- Automated Testing
+- Performance Optimization
+
+# 33. IMPORTANT ACCEPTANCE CONDITIONS
+
+The application is not complete merely because the pages look good.
+
+Before marking the application complete:
+
+- Verify every navigation item.
+- Verify every form submission.
+- Verify every Create / Edit / Archive / Restore operation.
+- Verify account balance changes.
+- Verify loan calculations.
+- Verify savings calculations.
+- Verify split transactions.
+- Verify refunds.
+- Verify budget calculations.
+- Verify all reports.
+- Verify authentication.
+- Verify security rules.
+- Verify offline operation.
+- Verify automatic synchronization.
+- Verify attachment handling.
+- Verify that no transaction is duplicated.
+- Verify that no financial record is silently lost.
+- Verify that the responsive interface works.
+
+Do not use demo data as real financial data.
+
+A separate optional Demo Mode may be provided, but it must be clearly separated from the owner's actual financial records.
+
+# 34. FINAL EXECUTION INSTRUCTIONS
+
+Start building this application in Google AI Studio Build Mode.
+
+First:
+
+1. Inspect the generated project environment.
+2. Establish the complete project structure.
+3. Set up Firebase integration using the available AI Studio Firebase provisioning workflow.
+4. Configure Google Authentication and Firestore.
+5. Create the owner allowlist placeholder and secure database rules.
+6. Implement the core data model.
+7. Start building the actual UI and functionality.
+8. Continue through the development phases.
+9. Run tests and fix errors.
+
+When Firebase setup requires my approval, request the necessary approval through the supported workflow.
+
+Do not invent my Google email address, Firebase credentials, passwords, or account balances.
+
+Do not claim the application is production-ready until the required tests and security checks are complete.
+
+If the entire system cannot be completed in one generation, prioritize a working foundation and implement the remaining modules in the specified phases without discarding existing work.
+
+Maintain a DEVELOPMENT_STATUS.md file containing:
+
+- Completed features
+- In-progress features
+- Pending features
+- Firebase setup requirements
+- Known bugs
+- Test results
+- Next implementation steps
+
+Maintain a README.md containing:
+
+- Project overview
+- Setup instructions
+- Firebase configuration
+- Authentication configuration
+- Database structure
+- Security Rules
+- Running and build instructions
+- Backup and restore instructions
+
+At the end of each implementation phase, summarize what is actually working and what still requires configuration.
+
+**FINAL GOAL: Deliver a fully functional, secure, offline-first, bilingual Personal Finance Manager Web Application that I can use as my own permanent financial record management system.**

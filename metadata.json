@@ -1,0 +1,6 @@
+{
+  "name": "Personal Finance Manager",
+  "description": "Complete personal financial management system for accounts, transactions, loans, savings, assets, liabilities, and budgets with offline-first support and Bengali voice assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
